@@ -100,6 +100,8 @@ addBook.addEventListener('click', () => {
     render();
 });
 
+
+//Sample items
 let potter = new Book("JK. Rowling", "Harry Potter", 600, "Not read");
 let hg = new Book("Someone", "The Hunger Games", 300, "Not read");
 let me = new Book("Philip Reeve", "Mortal Engines", 314, "Read");
