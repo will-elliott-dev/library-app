@@ -1,4 +1,11 @@
 let myLibrary = [];
+let myLibrary_serialized = "";
+let myLibrary_deserialized = JSON.parse(localStorage.getItem("library"))
+
+if (myLibrary_deserialized) {
+    myLibrary = myLibrary_deserialized;
+}
+
 const cards = document.querySelector(".cards");
 
 function Book(author, title, pages, read) {
@@ -74,8 +81,15 @@ function render() {
             cards.removeChild(cardToDelete);
             myLibrary.splice(deleteBook.id, 1);
             console.log(myLibrary);
+            
+            myLibrary_serialized = JSON.stringify(myLibrary);
+            localStorage.setItem('library', myLibrary_serialized);
+
             render();
         })
+
+        myLibrary_serialized = JSON.stringify(myLibrary);
+        localStorage.setItem('library', myLibrary_serialized);
 
         card.appendChild(title);
         card.appendChild(author);
@@ -84,6 +98,7 @@ function render() {
         card.appendChild(buttons);
 
         cards.appendChild(card);
+
     }
 }
 
@@ -99,15 +114,5 @@ addBook.addEventListener('click', () => {
     myLibrary.push(newBook);
     render();
 });
-
-
-//Sample items
-let potter = new Book("JK. Rowling", "Harry Potter", 600, "Not read");
-let hg = new Book("Someone", "The Hunger Games", 300, "Not read");
-let me = new Book("Philip Reeve", "Mortal Engines", 314, "Read");
-
-myLibrary.push(potter);
-myLibrary.push(hg);
-myLibrary.push(me);
 
 render();
