@@ -103,16 +103,41 @@ function render() {
 }
 
 let addBook = document.querySelector("#addBook");
+let modal = document.getElementById("bg-modal");
 
 addBook.addEventListener('click', () => {
-    let author = prompt("Author:");
-    let title = prompt("Title:");
-    let pages = prompt("Pages:");
-    let read = prompt("Read: ('Read' or 'Not read' please)");
+    modal.style.display = 'flex';
+});
 
-    let newBook = new Book(author, title, pages, read);
-    myLibrary.push(newBook);
-    render();
+let closer = document.querySelector("#close");
+
+closer.addEventListener('click', () => {
+    modal.style.display = "none";
+})
+
+const submitBook = document.getElementById("submit-book");
+
+submitBook.addEventListener('click', () => {
+    let a = document.getElementById("author").value;
+    let t = document.getElementById("title").value;
+    let p = document.getElementById("pages").value;
+    let r = document.getElementById("read").checked;
+    let re = "";
+
+    if (a != "" && t != "" && p != "" && typeof(Number(p)) === "number") {
+        if (r === true) {
+			re = "Read";
+		}
+		else {
+			re = "Not read";
+		}
+        newBook = new Book(a, t, p, re);
+        myLibrary.push(newBook);
+        render();
+    } else {
+        alert("Please fill in all fields");
+    }
+    modal.style.display = "none";
 });
 
 render();
